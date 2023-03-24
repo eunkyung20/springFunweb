@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- src/main/resources -->
+<!-- 폴더 mappers 만들기 -->
+<!-- 파일 boardMapper.xml 만들기  -->
+
+<!-- 파일이름 대신에 namespace 이름을 불러서 사용 -->
+
+<mapper namespace="com.itwillbs.mappers.boardMapper">
+
+<!-- 	id="이름" sql구문 하나 하나 이름 
+        ? 대신에 BoardDTO 멤버변수명 #{id} -->
+    <insert id="insertBoard">
+    	insert into board(num,name,subject,content,readcount,date,file) 
+    	values(#{num},#{name},#{subject},#{content},#{readcount},#{date},#{file})
+    </insert>
+    
+    <select id="getMaxNum" resultType="java.lang.Integer">
+        select max(num) from board 
+    </select>
+    
+    <select id="getBoardList" resultType="com.itwillbs.domain.BoardDTO">
+        select * from board
+        <if test="search != null">
+        	where subject like CONCAT('%',#{search},'%')
+        </if>
+        order by num desc 
+        limit #{startRow} , #{pageSize}    	
+    </select>
+    
+<!--     검색어 -->
+    <select id="getBoardCount" resultType="java.lang.Integer">
+        select count(*) from board 
+        <if test="search != null">
+        	where subject like CONCAT('%',#{search},'%')
+        </if>
+    </select>
+    
+    <select id="getBoard" resultType="com.itwillbs.domain.BoardDTO">
+        select * from board
+        where num = #{num}   	
+    </select>
+    
+    <update id="updateBoard">
+    	update board set subject = #{subject}, content = #{content}
+    	where num = #{num}   
+    </update>
+    
+    <delete id="deleteBoard">
+    	delete from board
+    	where num = #{num}
+    </delete>
+    
+    <update id="fupdateBoard">
+    	update board set subject = #{subject}, content = #{content}, file = #{file}
+    	where num = #{num}   
+    </update>
+    
+   
+</mapper>
+
+
+
+
+
+
