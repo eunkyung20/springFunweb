@@ -95,7 +95,7 @@
 		
 %>
 <article>
-<h1>Notice</h1>
+<h1>File Notice</h1>
 <table id="notice">
 <tr><th class="tno">No.</th>
     <th class="ttitle">Title</th>
@@ -104,7 +104,7 @@
     <th class="tread">Read</th></tr>
     
  <c:forEach var="dto" items="${boardList}">
-  	<tr onclick="location.href='${pageContext.request.contextPath}/board/content?num=${dto.num}'">
+  	<tr onclick="location.href='${pageContext.request.contextPath}/board/fcontent?num=${dto.num}'">
  	<td>${dto.num}</td>
     <td class="left">
 <%--     <c:if test=""> --%>
@@ -125,7 +125,7 @@
 <c:if test="${ ! empty sessionScope.id }">
 
 	<input type="button" value="글쓰기" class="btn" 
-onclick="location.href='${pageContext.request.contextPath}/board/write'">
+onclick="location.href='${pageContext.request.contextPath}/board/fwrite'">
 
 </c:if>
 
@@ -133,7 +133,7 @@ onclick="location.href='${pageContext.request.contextPath}/board/write'">
 </div>
 
 <div id="table_search">
-<form action="${pageContext.request.contextPath}/board/list" method="get">
+<form action="${pageContext.request.contextPath}/board/flist" method="get">
 <input type="text" name="search" class="input_box">
 <input type="submit" value="search" class="btn">
 </form>
@@ -220,15 +220,15 @@ onclick="location.href='${pageContext.request.contextPath}/board/write'">
 %>
 
 <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
-<a href="${pageContext.request.contextPath}/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}">Prev</a>
+<a href="${pageContext.request.contextPath}/board/flist?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}">Prev</a>
 </c:if>
 
 <c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-<a href="${pageContext.request.contextPath}/board/list?pageNum=${i}&search=${pageDTO.search}">${i}</a>
+<a href="${pageContext.request.contextPath}/board/flist?pageNum=${i}&search=${pageDTO.search}">${i}</a>
 </c:forEach>
 
 <c:if test="${pageDTO.endPage < pageDTO.pageCount }">
-<a href="${pageContext.request.contextPath}/board/list?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}">Next</a>
+<a href="${pageContext.request.contextPath}/board/flist?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}">Next</a>
 </c:if>
 
 </div>

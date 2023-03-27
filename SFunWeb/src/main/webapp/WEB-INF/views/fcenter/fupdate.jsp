@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,56 +43,31 @@
 </ul>
 </nav>
 <!-- 왼쪽메뉴 -->
-<%
-// BoardDTO dto=(BoardDTO)request.getAttribute("dto");
-%>
+
 <!-- 게시판 -->
 <article>
-<h1>Notice Content</h1>
-<table id="notice">
-<tr><td>글번호</td><td>${boardDTO.num}</td></tr>
-<tr><td>작성자</td><td>${boardDTO.name}</td></tr>
-<tr><td>글쓴날짜</td><td>${boardDTO.date}</td></tr>
-<tr><td>조회수</td><td>${boardDTO.readcount}</td></tr>
-<tr><td>글제목</td><td>${boardDTO.subject}</td></tr>
-<tr><td>글내용</td><td>${boardDTO.content}</td></tr> 
-</table>
-<div id="table_search">
-<c:if test="${! empty sessionScope.id }">
-
-	<c:if test="${sessionScope.id eq boardDTO.name }">
-	
-	<input type="button" value="글수정" class="btn"
- onclick="location.href='${pageContext.request.contextPath}/board/update?num=${boardDTO.num}'">
-<input type="button" value="글삭제" class="btn"
- onclick="location.href='${pageContext.request.contextPath}/board/delete?num=${boardDTO.num}'"> 		
-	
-	</c:if>
-
-</c:if>
+<h1>Notice Update</h1>
 <%
 // String id=(String)session.getAttribute("id");
-// if(id != null){
-// 	//세션값이 있으면 
-// 	if(id.equals(dto.getName())){
-		//로그인(세션값) == 글쓴이 같으면 
-		%>
-
-		<%
-// 	}
-	//답글쓰기
-	%>
-<!-- <input type="button" value="답글쓰기" class="btn" -->
-<%--  onclick="location.href='ReBoardWriteForm.bo?num=<%//=dto.getNum()%>&re_ref=<%//=dto.getRe_ref()%>&re_lev=<%//=dto.getRe_lev()%>&re_seq=<%//=dto.getRe_seq()%>'"> 			 --%>
-	<%
-// }
+// BoardDTO dto=(BoardDTO)request.getAttribute("dto");
 %>
-<input type="button" value="글목록" class="btn"
- onclick="location.href='${pageContext.request.contextPath}/board/list'">
+<form action="${pageContext.request.contextPath}/board/updatePro" method="post">
+<input type="hidden" name="num" value="${boardDTO.num }">
+<table id="notice">
+   <tr><td>글쓴이</td>
+       <td><input type="text" name="name" value="${boardDTO.name }" readonly></td></tr>
+   <tr><td>글제목</td>
+       <td><input type="text" name="subject" value="${boardDTO.subject }"></td></tr>
+   <tr><td>글내용</td>
+<td><textarea name="content" rows="10" cols="20">${boardDTO.content }</textarea></td></tr>              
+</table>
+<div id="table_search">
+<input type="submit" value="글수정" class="btn">
 </div>
+</form>
+
 <div class="clear"></div>
 <div id="page_control">
-
 </div>
 </article>
 <!-- 게시판 -->
